@@ -5,12 +5,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, priorities, statuses } from "@/lib/const/data";
+import { class_labels, priorities, statuses } from "@/lib/const/class-data";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { Class } from "@/lib/validations/class";
 
-export const columns: ColumnDef<Class>[] = [
+export const class_columns: ColumnDef<Class>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -47,7 +47,9 @@ export const columns: ColumnDef<Class>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
+      const label = class_labels.find(
+        (label) => label.value === row.original.label,
+      );
 
       return (
         <div className="flex space-x-2">

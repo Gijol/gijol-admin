@@ -6,15 +6,15 @@ import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { priorities, statuses } from "@/lib/const/data";
-import { DataTableFacetedFilter } from "@/components/dashboard/data-table-faceted-filter";
-import { DataTableViewOptions } from "@/components/dashboard/data-table-view-options";
+import { priorities, statuses } from "@/lib/const/class-data";
+import { DataTableFacetedFilter } from "@/components/dashboard/data-table/data-table-faceted-filter";
+import { DataTableViewOptions } from "@/components/dashboard/data-table/data-table-view-options";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableToolbar<TData>({
+export function UserDataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -24,22 +24,24 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter tasks..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("username")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("username")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {table.getColumn("status") && (
+        {table.getColumn("createdAt") && (
           <DataTableFacetedFilter
-            column={table.getColumn("status")}
+            column={table.getColumn("createdAt")}
             title="Status"
             options={statuses}
           />
         )}
-        {table.getColumn("priority") && (
+        {table.getColumn("lastSignInAt") && (
           <DataTableFacetedFilter
-            column={table.getColumn("priority")}
+            column={table.getColumn("lastSignInAt")}
             title="Priority"
             options={priorities}
           />

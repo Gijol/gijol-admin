@@ -9,7 +9,7 @@ import {
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 
-export const labels = [
+export const class_labels = [
   {
     value: "bug",
     label: "Bug",
