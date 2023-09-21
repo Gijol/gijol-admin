@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
-import { CamelToSnake, UserResource } from "@clerk/types";
+import { CamelToSnake, EmailAddressResource, UserResource } from "@clerk/types";
 import { format } from "date-fns";
 
 export const user_columns: ColumnDef<CamelToSnake<UserResource>>[] = [
@@ -33,7 +33,9 @@ export const user_columns: ColumnDef<CamelToSnake<UserResource>>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Id" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.original.id}</div>,
+    cell: ({ row }) => (
+      <div className="w-[100px] truncate">{row.original.id}</div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -42,15 +44,34 @@ export const user_columns: ColumnDef<CamelToSnake<UserResource>>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="User" />
     ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.original.username}
-          </span>
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
+        <span className="max-w-[500px] truncate font-medium">
+          {row.original.first_name} {row.original.last_name}
+        </span>
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Email" />
+    ),
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
+        <span className="max-w-[500px] truncate font-medium">
+          {
+            (
+              row.original.email_addresses.at(
+                0,
+              ) as unknown as CamelToSnake<EmailAddressResource>
+            ).email_address
+          }
+        </span>
+      </div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -62,7 +83,7 @@ export const user_columns: ColumnDef<CamelToSnake<UserResource>>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] items-center">
-          <span>{format(row.original.created_at as Date, "yyyy-MM-dd")}</span>
+          <span>{format(row.original.created_at as Date, "yyyy/MM/dd")}</span>
         </div>
       );
     },
@@ -79,7 +100,7 @@ export const user_columns: ColumnDef<CamelToSnake<UserResource>>[] = [
       return (
         <div className="flex items-center">
           <span>
-            {format(row.original.last_sign_in_at as Date, "yyyy-MM-dd")}
+            {format(row.original.last_sign_in_at as Date, "yyyy/MM/dd")}
           </span>
         </div>
       );
