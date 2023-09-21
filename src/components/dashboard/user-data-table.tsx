@@ -1,10 +1,10 @@
 import { clerk } from "@/lib/axios/clerk";
-import { UserResource } from "@clerk/types";
+import { CamelToSnake, UserResource } from "@clerk/types";
 import { DataTable } from "@/components/dashboard/data-table/data-table";
 import { user_columns } from "@/components/dashboard/data-table/user-columns";
 
-async function getUserList(): Promise<UserResource[]> {
-  const res = await clerk.get("/users");
+async function getUserList(): Promise<CamelToSnake<UserResource>[]> {
+  const res = await clerk.get("/users?limit=500");
   return res.data;
 }
 
