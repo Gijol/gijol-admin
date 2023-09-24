@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "path";
 import { z } from "zod";
-import { classSchema } from "@/lib/validations/class";
+import { taskSchema } from "@/lib/validations/tasks";
 import Image from "next/image";
 import { DataTable } from "@/components/dashboard/data-table/data-table";
 import { class_columns } from "@/components/dashboard/data-table/class-columns";
@@ -11,7 +11,7 @@ async function getClasses() {
     path.join(process.cwd(), "src/lib/const/tasks.json"),
   );
   const tasks = JSON.parse(data.toString());
-  return z.array(classSchema).parse(tasks);
+  return z.array(taskSchema).parse(tasks);
 }
 
 export async function ClassDataTable() {
@@ -35,14 +35,15 @@ export async function ClassDataTable() {
           className="hidden dark:block"
         />
       </div>
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+      <div className="hidden h-full flex-1 flex-col space-y-8 p-2 md:flex">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
-            <p className="text-muted-foreground">
-              Here&apos;s a list of your tasks for this month!
-            </p>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Class data table
+            </h2>
+            <p className="text-muted-foreground">List of classes in GIST</p>
           </div>
+          pnpm
         </div>
         <DataTable data={tasks} columns={class_columns} />
       </div>

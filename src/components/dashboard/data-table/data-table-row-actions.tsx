@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { class_labels } from "@/lib/const/class-data";
-import { classSchema } from "@/lib/validations/class";
+import { taskSchema } from "@/lib/validations/tasks";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -28,7 +28,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = classSchema.parse(row.original);
+  const task = taskSchema.parse(row.original);
 
   return (
     <DropdownMenu>

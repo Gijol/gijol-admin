@@ -8,9 +8,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { class_labels, priorities, statuses } from "@/lib/const/class-data";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
-import { Class } from "@/lib/validations/class";
+import { Tasks } from "@/lib/validations/tasks";
 
-export const class_columns: ColumnDef<Class>[] = [
+export const class_columns: ColumnDef<Tasks>[] = [
   {
     id: "select",
     header: ({ table }) => (
