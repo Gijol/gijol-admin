@@ -1,22 +1,34 @@
-import { promises as fs } from "node:fs";
-import path from "path";
-import { z } from "zod";
-import { taskSchema } from "@/lib/validations/tasks";
 import Image from "next/image";
 import { DataTable } from "@/components/dashboard/data-table/data-table";
 import { class_columns } from "@/components/dashboard/data-table/class-columns";
 import { gijol } from "@/lib/axios/gjol";
 import { coursePageSchema } from "@/lib/validations/class";
 
-async function getCourses() {
+type Props = {
+  searchParams: { page?: string; size?: string };
+};
+
+async function getCourses({
+  page = 0,
+  size = 20,
+}: {
+  page?: number;
+  size?: number;
+}) {
   const res = await gijol.get(
-    "/api/v1/courses?courseSearchCode=NONE&page=0&size=20",
+    `/api/v1/courses?courseSearchCode=NONE&page=${page}&size=${size}`,
   );
   return coursePageSchema.parse(res.data);
 }
 
-export async function ClassDataTable() {
-  const courses = await getCourses();
+export async function ClassDataTable({ searchParams }: Props) {
+  const activePage = searchParams?.page ? parseInt(searchParams.page) : 0;
+  const size = searchParams?.size ? parseInt(searchParams.size) : 20;
+  const courses = await getCourses({
+    page: activePage,
+    size: size,
+  });
+  const totalPage = courses.totalPages;
 
   return (
     <>
@@ -44,9 +56,15 @@ export async function ClassDataTable() {
             </h2>
             <p className="text-muted-foreground">List of classes in GIST</p>
           </div>
-          pnpm
         </div>
-        <DataTable data={courses.content} columns={class_columns} />
+        <DataTable
+          data={courses.content}
+          columns={class_columns}
+          activePage={activePage}
+          totalPages={totalPage}
+          pageSize={size}
+          paginationByUrl
+        />
       </div>
     </>
   );

@@ -27,14 +27,25 @@ import {
 
 import { DataTablePagination } from "@/components/dashboard/data-table/data-table-pagination";
 import { ClassDataTableToolbar } from "@/components/dashboard/data-table/class-data-table-toolbar";
+import DataTableURLPagination from "@/components/dashboard/data-table-url-pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  activePage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  paginationDisabled?: boolean;
+  paginationByUrl?: boolean;
 }
 export function DataTable<TData, TValue>({
   columns,
   data,
+  activePage,
+  totalPages,
+  pageSize,
+  paginationDisabled,
+  paginationByUrl,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -119,7 +130,16 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {paginationByUrl ? (
+        <DataTableURLPagination
+          activePage={activePage}
+          totalPages={totalPages}
+          pageSize={pageSize}
+          table={table}
+        />
+      ) : !paginationDisabled ? (
+        <DataTablePagination table={table} />
+      ) : null}
     </div>
   );
 }
