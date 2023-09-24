@@ -4,13 +4,11 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-
-import { class_labels, priorities, statuses } from "@/lib/const/class-data";
 import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
-import { Tasks } from "@/lib/validations/tasks";
 
-export const class_columns: ColumnDef<Tasks>[] = [
+import { CourseMacro } from "@/lib/validations/class";
+
+export const class_columns: ColumnDef<CourseMacro | null>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -35,79 +33,77 @@ export const class_columns: ColumnDef<Tasks>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="Id" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
-    enableHiding: false,
+    cell: ({ row }) => <div className="w-[80px]">{row.original?.id}</div>,
   },
   {
-    accessorKey: "title",
+    accessorKey: "course_code",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Code" />
+    ),
+    cell: ({ row }) => (
+      <div className="w-[80px]">{row.original?.courseCode}</div>
+    ),
+  },
+  {
+    accessorKey: "course_name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
-      const label = class_labels.find(
-        (label) => label.value === row.original.label,
-      );
-
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.original?.courseName}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "course_description",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Description" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status"),
-      );
-
-      if (!status) {
-        return null;
-      }
-
-      return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority"),
-      );
-
-      if (!priority) {
-        return null;
-      }
-
       return (
         <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
+          <span className="w-[500px] truncate">
+            {row.original?.description}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "course_prerequisites",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <span className="w-[200px] truncate">
+            {row.original?.prerequisite}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "course_tags",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Tags" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex w-[100px] items-center gap-1">
+          {row.original?.courseTags.map((tag) => (
+            <Badge key={tag} variant="outline">
+              {tag}
+            </Badge>
+          ))}
         </div>
       );
     },
@@ -116,7 +112,18 @@ export const class_columns: ColumnDef<Tasks>[] = [
     },
   },
   {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    accessorKey: "course_credit",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Credit" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex w-[100px] items-center">
+          <span className="w-[200px] truncate">
+            {row.original?.courseCredit}
+          </span>
+        </div>
+      );
+    },
   },
 ];

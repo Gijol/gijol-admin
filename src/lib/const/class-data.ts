@@ -11,16 +11,20 @@ import {
 
 export const class_labels = [
   {
-    value: "bug",
-    label: "Bug",
+    value: "HUS",
+    label: "HUS",
   },
   {
-    value: "feature",
-    label: "Feature",
+    value: "PPE",
+    label: "PPE",
   },
   {
-    value: "documentation",
-    label: "Documentation",
+    value: "부전공",
+    label: "부전공",
+  },
+  {
+    value: "전공",
+    label: "전공",
   },
 ];
 

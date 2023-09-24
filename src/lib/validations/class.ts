@@ -4,8 +4,13 @@ export const courseSchema = z.object({
   courseCode: z.string(),
   courseCredit: z.number(),
   courseName: z.string(),
-  courseTags: z.array(z.string().regex(/^(HUS|PPE|부전공|전공)$/)),
-  description: z.string(),
+  courseTags: z.array(
+    z
+      .string()
+      .regex(/^(HUS|PPE|부전공|전공)$/)
+      .optional(),
+  ),
+  description: z.string().nullable(),
   id: z.number(),
   prerequisite: z.string(),
 });
@@ -34,7 +39,7 @@ const pageableSchema = z.object({
 });
 
 export const coursePageSchema = z.object({
-  content: z.array(courseSchema),
+  content: z.array(courseSchema.nullable()),
   empty: z.boolean(),
   first: z.boolean(),
   last: z.boolean(),

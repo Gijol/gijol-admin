@@ -5,17 +5,18 @@ import { taskSchema } from "@/lib/validations/tasks";
 import Image from "next/image";
 import { DataTable } from "@/components/dashboard/data-table/data-table";
 import { class_columns } from "@/components/dashboard/data-table/class-columns";
+import { gijol } from "@/lib/axios/gjol";
+import { coursePageSchema } from "@/lib/validations/class";
 
-async function getClasses() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "src/lib/const/tasks.json"),
+async function getCourses() {
+  const res = await gijol.get(
+    "/api/v1/courses?courseSearchCode=NONE&page=0&size=20",
   );
-  const tasks = JSON.parse(data.toString());
-  return z.array(taskSchema).parse(tasks);
+  return coursePageSchema.parse(res.data);
 }
 
 export async function ClassDataTable() {
-  const tasks = await getClasses();
+  const courses = await getCourses();
 
   return (
     <>
@@ -45,7 +46,7 @@ export async function ClassDataTable() {
           </div>
           pnpm
         </div>
-        <DataTable data={tasks} columns={class_columns} />
+        <DataTable data={courses.content} columns={class_columns} />
       </div>
     </>
   );
