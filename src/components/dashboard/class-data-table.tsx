@@ -10,7 +10,7 @@ type Props = {
 
 async function getCourses({
   page = 0,
-  size = 20,
+  size = 819,
 }: {
   page?: number;
   size?: number;
@@ -63,7 +63,6 @@ export async function ClassDataTable({ searchParams }: Props) {
           activePage={activePage}
           totalPages={totalPage}
           pageSize={size}
-          paginationByUrl
         />
       </div>
     </>
