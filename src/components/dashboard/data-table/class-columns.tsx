@@ -79,7 +79,7 @@ export const class_columns: ColumnDef<CourseMacro | null>[] = [
   {
     accessorKey: "course_prerequisites",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
+      <DataTableColumnHeader column={column} title="PreRequisites" />
     ),
     cell: ({ row }) => {
       return (

@@ -41,11 +41,6 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  activePage,
-  totalPages,
-  pageSize,
-  paginationDisabled,
-  paginationByUrl,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =

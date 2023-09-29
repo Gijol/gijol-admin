@@ -10,13 +10,13 @@ type Props = {
 
 async function getCourses({
   page = 0,
-  size = 819,
+  size,
 }: {
   page?: number;
   size?: number;
 }) {
   const res = await gijol.get(
-    `/api/v1/courses?courseSearchCode=NONE&page=${page}&size=${size}`,
+    `/api/v1/courses?courseSearchCode=NONE&page=${page}&size=${819}`,
   );
   return coursePageSchema.parse(res.data);
 }
