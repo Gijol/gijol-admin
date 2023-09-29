@@ -5,7 +5,7 @@ import { gijol } from "@/lib/axios/gjol";
 import { coursePageSchema } from "@/lib/validations/class";
 
 type Props = {
-  searchParams: { page?: string; size?: string };
+  searchParams?: { page?: string; size?: string };
 };
 
 async function getCourses({
