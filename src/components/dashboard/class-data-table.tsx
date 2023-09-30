@@ -23,12 +23,11 @@ async function getCourses({
 
 export async function ClassDataTable({ searchParams }: Props) {
   const activePage = searchParams?.page ? parseInt(searchParams.page) : 0;
-  const size = searchParams?.size ? parseInt(searchParams.size) : 20;
+  const size = searchParams?.size ? parseInt(searchParams.size) : 819;
   const courses = await getCourses({
     page: activePage,
     size: size,
   });
-  const totalPage = courses.totalPages;
 
   return (
     <>
@@ -57,13 +56,7 @@ export async function ClassDataTable({ searchParams }: Props) {
             <p className="text-muted-foreground">List of classes in GIST</p>
           </div>
         </div>
-        <DataTable
-          data={courses.content}
-          columns={class_columns}
-          activePage={activePage}
-          totalPages={totalPage}
-          pageSize={size}
-        />
+        <DataTable data={courses.content} columns={class_columns} />
       </div>
     </>
   );
