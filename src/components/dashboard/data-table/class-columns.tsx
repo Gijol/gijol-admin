@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
 import { CourseMacro } from "@/lib/validations/class";
+import { DataTableRowActions } from "@/components/dashboard/data-table/data-table-row-actions";
 
 export const class_columns: ColumnDef<CourseMacro | null>[] = [
   {
@@ -125,5 +126,9 @@ export const class_columns: ColumnDef<CourseMacro | null>[] = [
         </div>
       );
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];

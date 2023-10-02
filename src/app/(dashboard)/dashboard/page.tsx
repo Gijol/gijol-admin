@@ -1,11 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import { Search } from "@/components/dashboard/search";
 import { UserNav } from "@/components/dashboard/user-nav";
-import DateRangePicker from "@/components/dashboard/date-range-picker";
 
 import { UserTabContent } from "@/components/dashboard/user-tab-content";
 import { ClassDataTable } from "@/components/dashboard/class-data-table";
