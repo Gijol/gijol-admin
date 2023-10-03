@@ -2,7 +2,7 @@ import Image from "next/image";
 import { DataTable } from "@/components/dashboard/data-table/data-table";
 import { class_columns } from "@/components/dashboard/data-table/class-columns";
 import { gijol } from "@/lib/axios/gjol";
-import { coursePageSchema } from "@/lib/validations/class";
+import { coursePageSchema } from "@/lib/validations/course";
 
 type Props = {
   searchParams?: { page?: string; size?: string };

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
-import { CourseMacro } from "@/lib/validations/class";
+import { CourseMacro } from "@/lib/validations/course";
 import { DataTableRowActions } from "@/components/dashboard/data-table/data-table-row-actions";
 
 export const class_columns: ColumnDef<CourseMacro | null>[] = [
