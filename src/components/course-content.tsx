@@ -1,31 +1,30 @@
 import { getUserAvgData } from "@/lib/const/user-avg-data";
+import { DeltaBar, Text } from "@tremor/react";
 import {
-  Card,
+  TableHeader,
   Table,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
   TableBody,
+  TableRow,
   TableCell,
-  Text,
-  Badge,
-} from "@tremor/react";
+  TableHead,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 
 export async function CourseContent() {
   const data = await getUserAvgData();
   return (
-    <Card>
-      <Table className="mt-5">
-        <TableHead>
+    <div className="rounded-md border">
+      <Table>
+        <TableHeader>
           <TableRow>
-            <TableHeaderCell>Code</TableHeaderCell>
-            <TableHeaderCell>Name</TableHeaderCell>
-            <TableHeaderCell>Year</TableHeaderCell>
-            <TableHeaderCell>Semester</TableHeaderCell>
-            <TableHeaderCell>Avg Grade</TableHeaderCell>
-            <TableHeaderCell>Number of Students</TableHeaderCell>
+            <TableHead>Code</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Year</TableHead>
+            <TableHead>Semester</TableHead>
+            <TableHead>Avg Grade</TableHead>
+            <TableHead>Number of Students</TableHead>
           </TableRow>
-        </TableHead>
+        </TableHeader>
         <TableBody>
           {data.map((item) => (
             <TableRow key={item.course_name}>
@@ -36,13 +35,23 @@ export async function CourseContent() {
               <TableCell>{item.year}</TableCell>
               <TableCell>{item.semester}</TableCell>
               <TableCell>
-                <Badge color="emerald">{item.average_grade?.toFixed(2)}</Badge>
+                <Badge variant="outline">
+                  {item.average_grade?.toFixed(2)}
+                </Badge>
               </TableCell>
-              <TableCell>{item.num_students}</TableCell>
+              <TableCell>
+                <DeltaBar
+                  value={item.num_students as number}
+                  isIncreasePositive
+                  className="mt-3"
+                />
+
+                {/*{item.num_students}*/}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </Card>
+    </div>
   );
 }
