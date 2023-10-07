@@ -41,12 +41,10 @@ export async function CourseContent() {
               </TableCell>
               <TableCell>
                 <DeltaBar
-                  value={item.num_students as number}
+                  value={(item.num_students as number) * 2.5}
                   isIncreasePositive
                   className="mt-3"
                 />
-
-                {/*{item.num_students}*/}
               </TableCell>
             </TableRow>
           ))}

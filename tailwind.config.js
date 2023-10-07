@@ -6,6 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}", // Tremor module
 	],
   theme: {
     transparent: "transparent",
