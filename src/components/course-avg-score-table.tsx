@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-export async function CourseContent() {
+export async function CourseAvgScoreTable() {
   const data = await getUserAvgData();
   return (
     <div className="rounded-md border">

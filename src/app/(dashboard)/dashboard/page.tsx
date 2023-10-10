@@ -7,7 +7,7 @@ import { UserNav } from "@/components/dashboard/user-nav";
 
 import { UserTabContent } from "@/components/dashboard/user-tab-content";
 import { ClassDataTable } from "@/components/dashboard/class-data-table";
-import { CourseContent } from "@/components/course-content";
+import { CourseAvgScoreTable } from "@/components/course-avg-score-table";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -59,7 +59,7 @@ export default function DashboardPage() {
               <ClassDataTable />
             </TabsContent>
             <TabsContent value="course content" className="space-y-4">
-              <CourseContent />
+              <CourseAvgScoreTable />
             </TabsContent>
           </Tabs>
         </div>

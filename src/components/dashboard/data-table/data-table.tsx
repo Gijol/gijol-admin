@@ -125,16 +125,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {/*{paginationByUrl ? (*/}
-      {/*  <DataTableURLPagination*/}
-      {/*    activePage={activePage}*/}
-      {/*    totalPages={totalPages}*/}
-      {/*    pageSize={pageSize}*/}
-      {/*    table={table}*/}
-      {/*  />*/}
-      {/*) : !paginationDisabled ? (*/}
       <DataTablePagination table={table} />
-      {/*) : null}*/}
     </div>
   );
 }
